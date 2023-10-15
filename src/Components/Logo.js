@@ -11,6 +11,14 @@ function Logo () {
           className="w-full h-full object-cover"
         />
       </div>
+
+      <div className="w-59 h-84 bg-white rounded-md p-2 mt-8">
+        <img
+          src="https://i0.wp.com/lopezdoriga.com/wp-content/uploads/2018/08/twitter-unfollow1.jpg?resize=675%2C1200&ssl=1"
+          alt="Logo"
+          className="w-full h-full object-cover"
+        />
+      </div>
     </div>
   );
 };
