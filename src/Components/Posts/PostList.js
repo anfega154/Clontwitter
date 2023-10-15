@@ -2,34 +2,39 @@ import React from 'react';
 import PostCard from './PostCard';
 
 
- function PostLists () {
+function PostLists({ posts }) {
   return (
     <>
-    {
-        // posts?.map(post => {
-        //   const {
-        //     id,
-        //     user,
-        //     content
-        //   } = post
+      {
+        posts?.map(post => {
+          const {
+            id,
+            user,
+            content,
+            created_at
+          } = post
 
-        //   const {
-        //     user_name: userName,
-        //     name: userFullName,
-        //     avatar_url: avatarUrl
-        //   } = user
+          const {
+            user_name: userName,
+            name: userFullName,
+            avatar_url: avatarUrl
+          } = user
 
-        //   return (
+          const postDate = new Date(created_at);
+          const formattedDate = postDate.toLocaleDateString();
+          const formattedTime = postDate.toLocaleTimeString();
+
+          return (
             <PostCard
-            userFullName="Andres Gañan"
-            username="UsuarioEjemplo"
-            profileImage="https://elcomercio.pe/resizer/0zoHZLOjzUyr7f1tuip1OQgdCQ4=/580x330/smart/filters:format(jpeg):quality(90)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/LPW4JMM3MZG3DJA5RN5DGY44HU.jpeg"
-            content="Este es un tweet de ejemplo. ¡Hola, mundo!"
-            postDate="12/07/2023"
-            postTime ="14:02"
-          />
-        //   )
-        // })
+              userFullName={userName}
+              username={userFullName}
+              profileImage={avatarUrl}
+              content={content}
+              postDate={formattedDate}
+              postTime={formattedTime}
+            />
+          )
+        })
       }
     </>
   )

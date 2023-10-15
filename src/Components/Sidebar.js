@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 
 function Sidebar() {
   return (
-    <div className="h-screen w-1/5 bg-blue-400 text-white p-4 flex flex-col">
-      <div className="text-2xl mb-4">Sidebar</div>
+    <div className="h-screen w-1/5 bg-blue-100 text-black p-8 flex flex-col rounded-md">
+      <div className="text-2xl mb-4">✘</div>
       <ul className="space-y-4">
         <li className="flex items-center">
           <FaHome className="mr-2" />

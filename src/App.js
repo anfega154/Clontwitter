@@ -6,10 +6,13 @@ import Logo from './Components/Logo';
 import Layout from './pages/Layout';
 import Sidebar from './Components/Sidebar';
 import Home from './Components/Home';
+import { AuthProvider } from "./Auth/AuthContext";
+
 
 
 function App() {
   return (
+    <AuthProvider>
     <HashRouter>
       <Routes>
         <Route path="/" element={
@@ -31,12 +34,13 @@ function App() {
 
           <Layout>
             <Sidebar/>
-            <Home/>
+            <Home />
             <Logo />
           </Layout>
         } />
       </Routes>
     </HashRouter>
+    </AuthProvider>
   );
 }
 

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import {supabase} from './lib/SupabasseClient'
+
 
 
 const Register = () => {
@@ -18,13 +20,46 @@ const Register = () => {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(formData);
+        try {
+            const { data: existingUsers, error: existingUsersError } = await supabase
+            .from('users')
+            .select('user_name')
+            .eq('user_name', formData.username)
+          
+            const { data: existingEmail, error: existingEmailError } = await supabase
+            .from('users')
+            .select('email')
+            .eq('email', formData.email)
+    
+            if (existingUsers && existingUsers.length > 0 || existingEmail && existingEmail.length > 0) {
+                alert('Ya existe un usuario con el mismo username o email. Por favor, elige otro.');
+            } else {
+                console.log(formData.email)
+                const { data, error } = await supabase.from('users').insert([
+                    {
+                        name: formData.name,
+                        user_name: formData.username,
+                        password: formData.password,
+                        email: formData.email,
+                    },
+                ]);
+                if (error) {
+                    alert('Error al insertar en la base de datos:', error);
+                } else {
+                    alert('Registro exitoso:');
+                    window.location.reload();
+                }
+            }
+        } catch (error) {
+            alert('Error al interactuar con Supabase:', error);
+        }
     };
+    
 
     return (
-        <div className=" bg-blue-400 flex justify-center items-center h-screen w-4/5 ">
+        <div className=" bg-blue-200 flex justify-center items-center h-screen w-4/5 ">
             <form className="bg-white shadow-md rounded px-20 pt-10 pb-8 mb-4" onSubmit={handleSubmit}>
                 <h2 className="text-2xl font-bold text-center mb-4">Registro</h2>
                 <div className="mb-4">
@@ -38,6 +73,7 @@ const Register = () => {
                         name="name"
                         value={formData.name}
                         onChange={handleChange}
+                        required
                     />
                 </div>
                 <div className="mb-4">
@@ -51,6 +87,7 @@ const Register = () => {
                         name="username"
                         value={formData.username}
                         onChange={handleChange}
+                        required
                     />
                 </div>
                 <div className="mb-4">
@@ -64,6 +101,7 @@ const Register = () => {
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
+                        required
                     />
                 </div>
                 <div className="mb-6">
@@ -77,6 +115,7 @@ const Register = () => {
                         name="password"
                         value={formData.password}
                         onChange={handleChange}
+                        required
                     />
                 </div>
                 <div className="flex items-center justify-center">

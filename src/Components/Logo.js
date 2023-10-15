@@ -3,8 +3,8 @@ import React from 'react';
 
 function Logo () {
   return (
-    <div className="absolute inset-y-0 right-0 w-1/5 bg-gray-100">
-      <div className="w-59 h-44 bg-gray-400 rounded-md">
+    <div className="absolute inset-y-0 right-0 w-1/5 bg-gray-100 p-2">
+      <div className="w-59 h-44 bg-white rounded-md p-2">
         <img
           src="https://phantom-marca.unidadeditorial.es/8fe149666f7f9188a0006d2627e9487a/resize/828/f/webp/assets/multimedia/imagenes/2023/07/24/16902035774204.jpg"
           alt="Logo"
