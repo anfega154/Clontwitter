@@ -3,7 +3,7 @@ import { supabase } from './lib/SupabasseClient';
 
 
 
-function ComposePost({ userAvatarUrl }) {
+function ComposePost({ userAvatarUrl,iduser }) {
     const [pending, setPending] = useState(false);
     const contentRef = useRef();
 
@@ -26,7 +26,7 @@ function ComposePost({ userAvatarUrl }) {
             return;
         }
 
-        await supabase.from('posts').insert({ content, user_id: 'cc8dcd1d-bc08-4b2a-b1cb-9dbdb1dff9f4' });
+        await supabase.from('posts').insert({ content, user_id:iduser});
 
         setPending(false);
         contentRef.current.value = '';

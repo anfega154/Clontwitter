@@ -13,7 +13,7 @@ function Sidebar() {
         </li>
         <li className="flex items-center">
           <FaUser className="mr-2" />
-          <Link to="/perfil">Perfil</Link>
+          <Link to="/profile">Perfil</Link>
         </li>
         <li className="flex items-center">
           <FaCog className="mr-2" />

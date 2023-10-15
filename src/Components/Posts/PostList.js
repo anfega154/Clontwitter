@@ -26,8 +26,8 @@ function PostLists({ posts }) {
 
           return (
             <PostCard
-              userFullName={userName}
-              username={userFullName}
+              userFullName={userFullName}
+              username={userName}
               profileImage={avatarUrl}
               content={content}
               postDate={formattedDate}

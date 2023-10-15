@@ -9,7 +9,6 @@ function Index() {
         email: '',
         password: '',
     });
-    const [userId, setUserId] = useState(null);
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -31,18 +30,17 @@ function Index() {
 
             const { data: existingEmail, error: existingEmailError } = await supabase
                 .from('users')
-                .select('email')
+                .select('email,id')
                 .eq('email', formData.email)
 
             if ((existingPass && existingPass.length < 1) || (existingEmail && existingEmail.length < 1)) {
                 alert('Correo o usuario incorrecto');
             } else {
-                setUserId(existingEmail[0].id);
-                dispatch({ type: "LOGIN", payload: { iduser:userId } });
                 navigate('/home');
+                dispatch({ type: "LOGIN", payload: { iduser:existingEmail[0].id } });
             }
         } catch (error) {
-            alert('Error al interactuar con Supabase: ' + error.message); // Display the error message
+            alert('Error al interactuar con Supabase: ' + error.message);
         }
     };
 
