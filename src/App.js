@@ -9,6 +9,8 @@ import Home from './Components/Home';
 import { AuthProvider, useAuth } from "./Auth/AuthContext";
 import ErrorComponent from './Components/ErrorComponent';
 import UserProfile from './Components/UserProfile';
+import PasswordReset from './Components/PasswordReset';
+
 
 function App() {
   return (
@@ -18,7 +20,6 @@ function App() {
           <Route path="/" element={
             <Layout>
               <Index />
-              <Logo />
             </Layout>
           } />
           <Route path="/register" element={
@@ -27,16 +28,22 @@ function App() {
               <Logo />
             </Layout>
           } />
-          <Route path="/home" element={ 
+          <Route path="/home" element={
             <Layout>
               <AuthenticaHome />
               <Logo />
             </Layout>
           } />
-          <Route path="/profile" element={ 
+          <Route path="/profile" element={
             <Layout>
               <Sidebar />.
-      <UserProfile />
+              <UserProfile />
+              <Logo />
+            </Layout>
+          } />
+          <Route path="/reset" element={
+            <Layout>
+          <PasswordReset/>
               <Logo />
             </Layout>
           } />
@@ -50,10 +57,10 @@ function AuthenticaHome() {
   const { state } = useAuth();
   return (
     <div>
-      {/* {state.isAuthenticated ? <Sidebar /> : null}
-      {state.isAuthenticated ? <Home /> : <ErrorComponent/>}  */}
-      <Sidebar />.
-      <Home />
+      {state.isAuthenticated ? <Sidebar /> : null}
+      {state.isAuthenticated ? <Home /> : <ErrorComponent />}
+      {/* <Sidebar />.
+      <Home /> */}
     </div>
   );
 }

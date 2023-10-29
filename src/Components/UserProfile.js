@@ -1,18 +1,24 @@
 import React, { useState } from 'react';
+import { AuthProvider, useAuth } from "../Auth/AuthContext";
+import {supabase} from './lib/SupabasseClient'
+
 
 const UserProfile = () => {
+  const { state, dispatch } = useAuth();
   const [isEditing, setIsEditing] = useState(false);
   const [userData, setUserData] = useState({
-    name: 'Nombre del Usuario',
-    username: 'anfega',
-    email: 'correo@example.com',
-    profileImage: 'https://elcomercio.pe/resizer/0zoHZLOjzUyr7f1tuip1OQgdCQ4=/580x330/smart/filters:format(jpeg):quality(90)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/LPW4JMM3MZG3DJA5RN5DGY44HU.jpeg',
+    name: state.user.name,
+    username: state.user.username,
+    email: state.user.email,
+    profileImage: state.user.avatar,
   });
   const [followers, setFollowers] = useState(['Seguidor1', 'Seguidor2', 'Seguidor3']);
   const [following, setFollowing] = useState(['Siguiendo1', 'Siguiendo2', 'Siguiendo3']);
-
-  const handleEditClick = () => {
+ 
+ const handleEditClick = () => {
     setIsEditing(!isEditing);
+    // supabase
+    // .update({
   };
 
   const handleInputChange = (e) => {
@@ -24,7 +30,7 @@ const UserProfile = () => {
   };
 
   return (
-    <div className="absolute inset-y-0 right-0 w-4/5 bg-blue-200 min-h-screen">
+    <div className="absolute inset-y-0 right-0 w-4/5  bg-gray-100 min-h-screen p-2">
       <div className="bg-white rounded shadow-lg p-4">
         <div className="text-center">
           <img

@@ -30,7 +30,7 @@ function ComposePost({ userAvatarUrl,iduser }) {
 
         setPending(false);
         contentRef.current.value = '';
-        window.location.reload();
+        // window.location.reload();
     };
 
     return (
