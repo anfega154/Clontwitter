@@ -19,7 +19,7 @@ function Home() {
             .from('posts')
             .select('*,user:users(name, avatar_url, user_name)')
             .order('created_at', { ascending: false }) 
-            .limit(3)
+            .limit(5)
             .then(({ data, error }) => {
                 if (error) {
                     console.error('Error fetching posts:', error);

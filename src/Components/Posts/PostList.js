@@ -32,6 +32,7 @@ function PostLists({ posts }) {
               content={content}
               postDate={formattedDate}
               postTime={formattedTime}
+              idPost={id}
             />
           )
         })
