@@ -3,6 +3,8 @@ import ComposePost from './ComposePost';
 import PostLists from './Posts/PostList';
 import {supabase} from './lib/SupabasseClient'
 import { AuthProvider, useAuth } from "../Auth/AuthContext";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Home() {
     const { state, dispatch } = useAuth();
@@ -22,7 +24,7 @@ function Home() {
             .limit(5)
             .then(({ data, error }) => {
                 if (error) {
-                    console.error('Error fetching posts:', error);
+                    toast.error('Error fetching posts:', error);
                 } else {
                     setPosts(data);
                     if (state.user && state.user.iduser) {

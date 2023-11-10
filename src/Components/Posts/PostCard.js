@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { FaHeart, FaComment, FaRetweet, FaCentos } from 'react-icons/fa';
 import { supabase } from './../lib/SupabasseClient'
 import { AuthProvider, useAuth } from "../../Auth/AuthContext";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const PostCard = ({ userFullName, username, profileImage, content, postDate, postTime, idPost }) => {
@@ -40,10 +42,10 @@ const PostCard = ({ userFullName, username, profileImage, content, postDate, pos
     try {
       const { data, error } = await supabase.from('megusta').insert({ id_user: userId, id_post: idPost });
       if (error) {
-        alert(error.toString());
+        toast.error(error.toString());
       }
     } catch (error) {
-      alert('Error in like:', error.toString());
+      toast.error('Error in like:', error.toString());
     }
   };
 
@@ -67,13 +69,13 @@ const PostCard = ({ userFullName, username, profileImage, content, postDate, pos
         setCommentText('');
       }
     } catch (error) {
-      alert('Error in comment:', error.toString());
+      toast.error('Error in comment:', error.toString());
     }
   };
 
   const handleRetweetClick = () => {
 
-    alert(`Has retwitteado el tweet de ${username}: "${content}"`);
+    toast.success(`Has retwitteado el tweet de ${username}: "${content}"`);
   };
 
   useEffect(() => {
@@ -120,7 +122,7 @@ const PostCard = ({ userFullName, username, profileImage, content, postDate, pos
           }
         });
     } catch (error) {
-      alert('Error:', error.toString());
+      toast.error('Error:', error.toString());
     }
   }
 
@@ -143,7 +145,7 @@ const PostCard = ({ userFullName, username, profileImage, content, postDate, pos
             }
           });
       } catch (error) {
-        alert('Error:', error.toString());
+        toast.error('Error:', error.toString());
       }
     }
     const intervalId = setInterval(getComments, 1000);

@@ -10,11 +10,16 @@ import { AuthProvider, useAuth } from "./Auth/AuthContext";
 import ErrorComponent from './Components/ErrorComponent';
 import UserProfile from './Components/UserProfile';
 import PasswordReset from './Components/PasswordReset';
+import { ToastContainer } from 'react-toastify';
+
+
 
 
 function App() {
   return (
+    
     <AuthProvider>
+     <ToastContainer />
       <HashRouter>
         <Routes>
           <Route path="/" element={

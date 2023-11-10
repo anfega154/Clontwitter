@@ -1,5 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { supabase } from './lib/SupabasseClient';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -20,7 +22,7 @@ function ComposePost({ userAvatarUrl,iduser }) {
         }
 
         if (content.length > 280) {
-            alert('El contenido no puede superar los 280 caracteres.');
+            toast.error('El contenido no puede superar los 280 caracteres.');
             setPending(false);
             contentRef.current.value = '';
             return;

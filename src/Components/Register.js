@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {supabase} from './lib/SupabasseClient'
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -34,7 +36,7 @@ const Register = () => {
             .eq('email', formData.email)
     
             if (existingUsers && existingUsers.length > 0 || existingEmail && existingEmail.length > 0) {
-                alert('Ya existe un usuario con el mismo username o email. Por favor, elige otro.');
+                toast.error('Ya existe un usuario con el mismo username o email. Por favor, elige otro.');
             } else {
                 console.log(formData.email)
                 const { data, error } = await supabase.from('users').insert([
@@ -47,14 +49,14 @@ const Register = () => {
                     },
                 ]);
                 if (error) {
-                    alert('Error al insertar en la base de datos:', error);
+                    toast.error('Error al insertar en la base de datos:', error);
                 } else {
-                    alert('Registro exitoso:');
+                    toast.error('Registro exitoso:');
                     window.location.reload();
                 }
             }
         } catch (error) {
-            alert('Error al interactuar con Supabase:', error);
+            toast.error('Error al interactuar con Supabase:', error);
         }
     };
     

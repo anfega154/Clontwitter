@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { supabase } from './lib/SupabasseClient'
 import { useAuth } from "../Auth/AuthContext";
 import logo from '../assets/img/logo.PNG';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Index() {
     const { state, dispatch } = useAuth();
@@ -35,14 +37,14 @@ function Index() {
                 .eq('email', formData.email)
 
             if ((existingPass && existingPass.length < 1) || (existingEmail && existingEmail.length < 1)) {
-                alert('Correo o usuario incorrecto');
+                toast.error('Correo o usuario incorrecto');
             } else {
                 navigate('/home');
                 dispatch({ type: "LOGIN", payload: { iduser:existingEmail[0].id,username:existingEmail[0].user_name,
                     avatar:existingEmail[0].avatar_url,name:existingEmail[0].name,email:existingEmail[0].email } });
             }
         } catch (error) {
-            alert('Error al interactuar con Supabase: ' + error.message);
+            toast.error('Error al interactuar con Supabase: ' + error.message);
         }
     };
 

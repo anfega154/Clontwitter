@@ -71,26 +71,17 @@ const UserProfile = () => {
             {isEditing ? 'Guardar' : 'Editar Perfil'}
           </button>
         </div>
-        <div className="flex space-x-4">
-      <div className="mt-4 p-6">
-        <h3 className="text-lg font-semibold">Seguidores:</h3>
-        <ul className="list-disc pl-5">
-          {followers.map((follower, index) => (
-            <li key={index} className="mt-2">{follower}</li>
-          ))}
-        </ul>
+        <div className="flex justify-between mt-8">
+          <div>
+            <h3 className="text-lg font-semibold">Seguidores: {followers.length}</h3>
+            <button className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 mt-2">Ver todos</button>
+          </div>
+          <div>
+            <h3 className="text-lg font-semibold">Siguiendo: {following.length}</h3>
+            <button className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 mt-2">Ver todos</button>
+          </div>
+        </div>
       </div>
-      <div className="mt-4 p-6">
-        <h3 className="text-lg font-semibold">Siguiendo:</h3>
-        <ul className="list-disc pl-5">
-          {following.map((followed, index) => (
-            <li key={index} className="mt-2">{followed}</li>
-          ))}
-        </ul>
-      </div>
-    </div>
-      </div>
-      
     </div>
   );
 };
