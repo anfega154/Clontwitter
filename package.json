@@ -1,6 +1,5 @@
 {
   "name": "redsocial",
-  "author": "https://anfega154.github.io/Clontwitter",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -26,9 +25,7 @@
     "eject": "react-scripts eject",
     "build:css": "postcss src/css/tailwind.css -o src/css/main.css ",
     "watch:css": "postcss src/css/tailwind.css -o src/css/main.css",
-    "cypress:open": "cypress open",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "cypress:open": "cypress open"
   },
   "eslintConfig": {
     "extends": [
