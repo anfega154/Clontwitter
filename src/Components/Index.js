@@ -26,22 +26,31 @@ function Index() {
         e.preventDefault();
 
         try {
-            const { data: existingPass, error: existingPassError } = await supabase
+            const { data: user, error } = await supabase
                 .from('users')
-                .select('password')
+                .select('password, email, id, user_name, avatar_url, name')
+                .eq('email', formData.email)
                 .eq('password', formData.password);
 
-            const { data: existingEmail, error: existingEmailError } = await supabase
-                .from('users')
-                .select('email,id,user_name,avatar_url,name,email')
-                .eq('email', formData.email)
+            if (error) {
+                throw error;
+            }
 
-            if ((existingPass && existingPass.length < 1) || (existingEmail && existingEmail.length < 1)) {
-                toast.error('Correo o usuario incorrecto');
-            } else {
+            if (user && user.length > 0) {
                 navigate('/home');
-                dispatch({ type: "LOGIN", payload: { iduser:existingEmail[0].id,username:existingEmail[0].user_name,
-                    avatar:existingEmail[0].avatar_url,name:existingEmail[0].name,email:existingEmail[0].email } });
+                toast.success('Bienvenido');
+                dispatch({ 
+                    type: "LOGIN", 
+                    payload: { 
+                        iduser: user[0].id,
+                        username: user[0].user_name,
+                        avatar: user[0].avatar_url,
+                        name: user[0].name,
+                        email: user[0].email 
+                    } 
+                });
+            } else {
+                toast.error('Correo o usuario incorrecto');
             }
         } catch (error) {
             toast.error('Error al interactuar con Supabase: ' + error.message);
