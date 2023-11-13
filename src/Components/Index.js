@@ -98,7 +98,7 @@ function Index() {
                         <Link to="/register">Registrarse</Link>
                     </button>
                 </form>
-                <a  className="text-blue-500 hover:underline mt-4 block" href="#">
+                <a  className="text-blue-500 hover:underline mt-4 block" href="/reset">
                     <Link to="/reset"> Olvidaste tu Contraseña?</Link>
                 </a>
             </div>
