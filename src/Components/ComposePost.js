@@ -37,7 +37,7 @@ function ComposePost({ userAvatarUrl,iduser }) {
 
     return (
         <form onSubmit={addPost} className='flex flex-row p-3 border-b border-white/20'>
-            <img className='rounded-full w-10 h-10 object-contain mr-4' src={userAvatarUrl} />
+            <img className='rounded-full w-10 h-10 object-contain mr-4' src={userAvatarUrl} alt="" />
             <div className='flex flex-1 flex-col gap-y-4'>
                 <textarea
                     ref={contentRef}

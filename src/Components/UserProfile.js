@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { AuthProvider, useAuth } from "../Auth/AuthContext";
-import {supabase} from './lib/SupabasseClient'
+import { useAuth } from "../Auth/AuthContext";
+// import {supabase} from './lib/SupabasseClient'
 
 
 const UserProfile = () => {
-  const { state, dispatch } = useAuth();
+  const { state } = useAuth();
   const [isEditing, setIsEditing] = useState(false);
   const [userData, setUserData] = useState({
     name: state.user.name,
@@ -12,8 +12,8 @@ const UserProfile = () => {
     email: state.user.email,
     profileImage: state.user.avatar,
   });
-  const [followers, setFollowers] = useState(['Seguidor1', 'Seguidor2', 'Seguidor3']);
-  const [following, setFollowing] = useState(['Siguiendo1', 'Siguiendo2', 'Siguiendo3']);
+  const [followers] = useState(['Seguidor1', 'Seguidor2', 'Seguidor3']);
+  const [following] = useState(['Siguiendo1', 'Siguiendo2', 'Siguiendo3']);
  
  const handleEditClick = () => {
     setIsEditing(!isEditing);

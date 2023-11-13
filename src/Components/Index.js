@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function Index() {
-    const { state, dispatch } = useAuth();
+    const { dispatch } = useAuth();
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -98,7 +98,7 @@ function Index() {
                         <Link to="/register">Registrarse</Link>
                     </button>
                 </form>
-                <a  className="text-blue-500 hover:underline mt-4 block">
+                <a  className="text-blue-500 hover:underline mt-4 block" href="#">
                     <Link to="/reset"> Olvidaste tu Contraseña?</Link>
                 </a>
             </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaHome, FaUser, FaCog, FaSignOutAlt } from 'react-icons/fa';
+import { FaHome, FaUser, FaCog } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 function Sidebar() {

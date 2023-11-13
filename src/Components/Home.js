@@ -2,16 +2,15 @@ import React, { useState, useEffect } from 'react';
 import ComposePost from './ComposePost';
 import PostLists from './Posts/PostList';
 import {supabase} from './lib/SupabasseClient'
-import { AuthProvider, useAuth } from "../Auth/AuthContext";
+import { useAuth } from "../Auth/AuthContext";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function Home() {
-    const { state, dispatch } = useAuth();
+    const { state } = useAuth();
 
     const [posts, setPosts] = useState([]);
     const [userId, setUserId] = useState('');
-    const [userName, setUserName] = useState('');
     const [avatarUrl, setAvatarUrl] = useState('');
 
     useEffect(() => {
@@ -29,7 +28,6 @@ function Home() {
                     setPosts(data);
                     if (state.user && state.user.iduser) {
                         setUserId(state.user.iduser);
-                        setUserName(state.user.username);
                         setAvatarUrl(state.user.avatar);
                     }
                     
@@ -40,7 +38,7 @@ function Home() {
         return () => {
             clearInterval(intervalId);
           };
-    }, []);
+    }, [state.user]);
 
 
     return (

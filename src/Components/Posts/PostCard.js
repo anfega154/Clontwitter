@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { FaHeart, FaComment, FaRetweet, FaCentos } from 'react-icons/fa';
 import { supabase } from './../lib/SupabasseClient'
-import { AuthProvider, useAuth } from "../../Auth/AuthContext";
+import {  useAuth } from "../../Auth/AuthContext";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
 const PostCard = ({ userFullName, username, profileImage, content, postDate, postTime, idPost }) => {
-  const { state, dispatch } = useAuth();
+  const { state } = useAuth();
   const [userId, setUserId] = useState('');
   const [userName, setUserName] = useState('');
-  const [avatar, setAvatar] = useState('https://us.123rf.com/450wm/imagevectors/imagevectors1606/imagevectors160600161/58872726-comentario-blanco-icono-en-el-bot%C3%B3n-azul-aislado-en-blanco.jpg');
+  const [avatar] = useState('https://us.123rf.com/450wm/imagevectors/imagevectors1606/imagevectors160600161/58872726-comentario-blanco-icono-en-el-bot%C3%B3n-azul-aislado-en-blanco.jpg');
   const [likes, setLikes] = useState(0);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [commentText, setCommentText] = useState('');
@@ -40,7 +40,7 @@ const PostCard = ({ userFullName, username, profileImage, content, postDate, pos
       setUserId(state.user.iduser);
     }
     try {
-      const { data, error } = await supabase.from('megusta').insert({ id_user: userId, id_post: idPost });
+      const {error } = await supabase.from('megusta').insert({ id_user: userId, id_post: idPost });
       if (error) {
         toast.error(error.toString());
       }
@@ -60,7 +60,7 @@ const PostCard = ({ userFullName, username, profileImage, content, postDate, pos
       setUserName(state.user.username);
     }
     try {
-      const { data, error } = await supabase.from('Reply').insert(
+      const {error } = await supabase.from('Reply').insert(
         { content: commentText, id_user: userId, id_post: idPost, user_name: userName });
       if (error) {
         alert(error.toString());
@@ -97,7 +97,7 @@ const PostCard = ({ userFullName, username, profileImage, content, postDate, pos
     return () => {
       clearInterval(intervalId);
     };
-  }, []);
+  }, [idPost]);
 
   const handleViewComent = () => {
     if (state.user && state.user.iduser) {
@@ -152,7 +152,7 @@ const PostCard = ({ userFullName, username, profileImage, content, postDate, pos
     return () => {
       clearInterval(intervalId);
     };
-  }, []);
+  }, [idPost]);
 
   return (
     <div className="bg-white rounded-lg shadow-md p-4 m-4">

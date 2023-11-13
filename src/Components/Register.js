@@ -25,21 +25,21 @@ const Register = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const { data: existingUsers, error: existingUsersError } = await supabase
+            const { data: existingUsers} = await supabase
                 .from('users')
                 .select('user_name')
                 .eq('user_name', formData.username)
 
-            const { data: existingEmail, error: existingEmailError } = await supabase
+            const { data: existingEmail } = await supabase
                 .from('users')
                 .select('email')
                 .eq('email', formData.email)
 
-            if (existingUsers && existingUsers.length > 0 || existingEmail && existingEmail.length > 0) {
+            if ((existingUsers && existingUsers.length > 0) || (existingEmail && existingEmail.length > 0)) {
                 toast.error('Ya existe un usuario con el mismo username o email. Por favor, elige otro.');
             } else {
                 console.log(formData.email)
-                const { data, error } = await supabase.from('users').insert([
+                const { error } = await supabase.from('users').insert([
                     {
                         name: formData.name,
                         user_name: formData.username,
