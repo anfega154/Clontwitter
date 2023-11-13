@@ -82,15 +82,13 @@ const Register = () => {
                     />
                 </div>    <div className="mb-4">
                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
-                        Apelllido
+                        Apellido
                     </label>
                     <input
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         type="text"
                         id="lastaname"
                         name="lastaname"
-                        value={formData.name}
-                        onChange={handleChange}
                         required
                     />
                 </div>
@@ -132,8 +130,6 @@ const Register = () => {
                         type="date"
                         id="date"
                         name="date"
-                        value={formData.name}
-                        onChange={handleChange}
                     />
                 </div>
                 <div className="mb-6">
