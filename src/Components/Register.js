@@ -51,8 +51,10 @@ const Register = () => {
                 if (error) {
                     toast.error('Error al insertar en la base de datos:', error);
                 } else {
-                    toast.error('Registro exitoso:');
-                    window.location.reload();
+                    toast.success('Registro exitoso:');
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 3000);
                 }
             }
         } catch (error) {
