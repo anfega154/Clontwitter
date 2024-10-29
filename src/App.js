@@ -64,8 +64,6 @@ function AuthenticaHome() {
     <div>
       {state.isAuthenticated ? <Sidebar /> : null}
       {state.isAuthenticated ? <Home /> : <ErrorComponent />}
-      {/* <Sidebar />.
-      <Home /> */}
     </div>
   );
 }

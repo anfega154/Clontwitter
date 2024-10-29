@@ -5,11 +5,14 @@ import { useAuth } from "../Auth/AuthContext";
 import logo from '../assets/img/logo.PNG';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Post } from './lib/Fetch';
+import { data } from 'autoprefixer';
+import { jwtDecode } from "jwt-decode";
 
 function Index() {
     const { dispatch } = useAuth();
     const [formData, setFormData] = useState({
-        email: '',
+        username: '',
         password: '',
     });
     const navigate = useNavigate();
@@ -26,55 +29,52 @@ function Index() {
         e.preventDefault();
 
         try {
-            const { data: user, error } = await supabase
-                .from('users')
-                .select('password, email, id, user_name, avatar_url, name')
-                .eq('email', formData.email)
-                .eq('password', formData.password);
+            const response = await Post('api/v1/login', formData);
 
-            if (error) {
-                throw error;
-            }
+            if (response.success) {
+                const token = response.body.token;
+                localStorage.setItem('token', token);
 
-            if (user && user.length > 0) {
-                navigate('/home');
+                const user = jwtDecode(token);
+
                 toast.success('Bienvenido');
-                dispatch({ 
-                    type: "LOGIN", 
-                    payload: { 
-                        iduser: user[0].id,
-                        username: user[0].user_name,
-                        avatar: user[0].avatar_url,
-                        name: user[0].name,
-                        email: user[0].email 
-                    } 
+                navigate('/home');
+                dispatch({
+                    type: "LOGIN",
+                    payload: {
+                        iduser: user.id,
+                        username: user.username,
+                        avatar: user.avatarurl,
+                        name: user.name,
+                        email: user.email
+                    }
                 });
             } else {
                 toast.error('Correo o usuario incorrecto');
             }
         } catch (error) {
-            toast.error('Error al interactuar con Supabase: ' + error.message);
+            toast.error('Error al autenticar: ' + error.message);
         }
     };
 
     return (
         <div className="flex justify-center items-center h-screen w-5/5 bg-gray-900 rounded-lg">
             <div className="bg-white p-1 h-96 rounded-lg shadow-md w-96 mb-8 mr-16 ">
-            <img
-          src={logo}
-          alt="Logo"
-          className="w-full h-full object-cover"
-        />
-                </div>
+                <img
+                    src={logo}
+                    alt="Logo"
+                    className="w-full h-full object-cover"
+                />
+            </div>
             <div className="bg-white p-8 rounded-lg shadow-md w-96">
                 <h2 className="text-3xl font-semibold text-center mb-4">Iniciar sesión</h2>
                 <form className="bg-white shadow-md rounded px-26 pt-10 pb-7 mb-4" onSubmit={handleSubmit}>
                     <input
                         type="text"
-                        name="email"
-                        placeholder="Correo electrónico"
+                        name="username"
+                        placeholder="Usuario"
                         className="w-full p-2 border rounded mb-2"
-                        value={formData.email}
+                        value={formData.username}
                         onChange={handleChange}
                         required
                     />
@@ -98,11 +98,11 @@ function Index() {
                         <Link to="/register">Registrarse</Link>
                     </button>
                 </form>
-                <a  className="text-blue-500 hover:underline mt-4 block" href="/reset">
+                <a className="text-blue-500 hover:underline mt-4 block" href="/reset">
                     <Link to="/reset"> Olvidaste tu Contraseña?</Link>
                 </a>
             </div>
-            
+
         </div>
     );
 }

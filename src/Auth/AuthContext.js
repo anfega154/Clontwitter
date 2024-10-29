@@ -6,8 +6,10 @@ export const useAuth = () => {
   return useContext(AuthContext);
 };
 
+const token = localStorage.getItem("token");
+
 const initialState = {
-  isAuthenticated: false,
+  isAuthenticated: token ? true : false,
   user: null,
 };
 

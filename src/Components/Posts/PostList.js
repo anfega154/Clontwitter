@@ -9,16 +9,16 @@ function PostLists({ posts }) {
         posts?.map(post => {
           const {
             id,
-            user,
+            User,
             content,
             created_at
           } = post
 
           const {
-            user_name: userName,
+            username: userName,
             name: userFullName,
-            avatar_url: avatarUrl
-          } = user
+            avatarurl: avatarUrl
+          } = User
 
           const postDate = new Date(created_at);
           const formattedDate = postDate.toLocaleDateString();

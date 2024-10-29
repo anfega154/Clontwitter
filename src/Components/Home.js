@@ -5,6 +5,7 @@ import {supabase} from './lib/SupabasseClient'
 import { useAuth } from "../Auth/AuthContext";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Get } from './lib/Fetch';
 
 function Home() {
     const { state } = useAuth();
@@ -13,31 +14,33 @@ function Home() {
     const [userId, setUserId] = useState('');
     const [avatarUrl, setAvatarUrl] = useState('');
 
-    useEffect(() => {
+       useEffect(() => {
+        const getPosts = async () => {
+            try {
+                const token = localStorage.getItem('token');
+                const response = await Get('api/v1/tweets/feed?page=1&limit=10', token);
+                const { body, success, error } = response;
 
-        const getPsosts = () =>{
-        supabase
-            .from('posts')
-            .select('*,user:users(name, avatar_url, user_name)')
-            .order('created_at', { ascending: false }) 
-            .limit(5)
-            .then(({ data, error }) => {
-                if (error) {
+                console.log(body);
+    
+                if (!success) {
                     toast.error('Error fetching posts:', error);
                 } else {
-                    setPosts(data);
+                    setPosts(body);
                     if (state.user && state.user.iduser) {
                         setUserId(state.user.iduser);
                         setAvatarUrl(state.user.avatar);
                     }
-                    
                 }
-            });
-        }
-        const intervalId = setInterval(getPsosts, 2000);
+            } catch (error) {
+                toast.error('Error fetching posts:', error.message);
+            }
+        };
+    
+        const intervalId = setInterval(getPosts, 2000);
         return () => {
             clearInterval(intervalId);
-          };
+        };
     }, [state.user]);
 
 
@@ -47,12 +50,6 @@ function Home() {
                 <ComposePost userAvatarUrl={avatarUrl}
                  iduser={userId} />
              <PostLists posts={posts}/>
-               {/* <pre>
-        {
-          JSON.stringify(posts, null, 2)
-    
-        }
-      </pre> */}
             </section>
             
 
