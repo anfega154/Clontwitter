@@ -1,8 +1,7 @@
 import React, { useRef, useState } from 'react';
-import { supabase } from './lib/SupabasseClient';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { Post } from './lib/Fetch';
 
 
 function ComposePost({ userAvatarUrl,iduser }) {
@@ -28,7 +27,7 @@ function ComposePost({ userAvatarUrl,iduser }) {
             return;
         }
 
-        await supabase.from('posts').insert({ content, user_id:iduser});
+         await Post('api/v1/tweets', {content});
 
         setPending(false);
         contentRef.current.value = '';

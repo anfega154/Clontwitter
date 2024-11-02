@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { FaHeart, FaComment, FaRetweet, FaCentos } from 'react-icons/fa';
-import { supabase } from './../lib/SupabasseClient'
 import {  useAuth } from "../../Auth/AuthContext";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -40,10 +39,10 @@ const PostCard = ({ userFullName, username, profileImage, content, postDate, pos
       setUserId(state.user.iduser);
     }
     try {
-      const {error } = await supabase.from('megusta').insert({ id_user: userId, id_post: idPost });
-      if (error) {
-        toast.error(error.toString());
-      }
+      // const {error } = await supabase.from('megusta').insert({ id_user: userId, id_post: idPost });
+      // if (error) {
+      //   toast.error(error.toString());
+      // }
     } catch (error) {
       toast.error('Error in like:', error.toString());
     }
@@ -60,14 +59,14 @@ const PostCard = ({ userFullName, username, profileImage, content, postDate, pos
       setUserName(state.user.username);
     }
     try {
-      const {error } = await supabase.from('Reply').insert(
-        { content: commentText, id_user: userId, id_post: idPost, user_name: userName });
-      if (error) {
-        alert(error.toString());
-      } else {
-        closeModal();
-        setCommentText('');
-      }
+      // const {error } = await supabase.from('Reply').insert(
+      //   { content: commentText, id_user: userId, id_post: idPost, user_name: userName });
+      // if (error) {
+      //   alert(error.toString());
+      // } else {
+      //   closeModal();
+      //   setCommentText('');
+      // }
     } catch (error) {
       toast.error('Error in comment:', error.toString());
     }
@@ -80,18 +79,18 @@ const PostCard = ({ userFullName, username, profileImage, content, postDate, pos
 
   useEffect(() => {
     const getLikes = () => {
-      supabase
-        .from('megusta')
-        .select('*')
-        .eq('id_post', idPost)
-        .then(({ data, error }) => {
-          if (error) {
-            console.log('Error fetching likes:', error);
-          } else {
-            const count = data.length;
-            setLikes(count);
-          }
-        });
+      // supabase
+      //   .from('megusta')
+      //   .select('*')
+      //   .eq('id_post', idPost)
+      //   .then(({ data, error }) => {
+      //     if (error) {
+      //       console.log('Error fetching likes:', error);
+      //     } else {
+      //       const count = data.length;
+      //       setLikes(count);
+      //     }
+      //   });
     }
     const intervalId = setInterval(getLikes, 1000);
     return () => {
@@ -106,21 +105,21 @@ const PostCard = ({ userFullName, username, profileImage, content, postDate, pos
     }
 
     try {
-      supabase
-        .from('Reply')
-        .select('*')
-        .eq('id_post', idPost)
-        .then(({ data, error }) => {
-          if (error) {
-            console.error('Error fetching replys:', error);
-          } else {
-            if (data.length > 0) {
-              setExistComent(true);
-            }
-            setReply(data);
-            openCommentModal();
-          }
-        });
+      // supabase
+      //   .from('Reply')
+      //   .select('*')
+      //   .eq('id_post', idPost)
+      //   .then(({ data, error }) => {
+      //     if (error) {
+      //       console.error('Error fetching replys:', error);
+      //     } else {
+      //       if (data.length > 0) {
+      //         setExistComent(true);
+      //       }
+      //       setReply(data);
+      //       openCommentModal();
+      //     }
+        // });
     } catch (error) {
       toast.error('Error:', error.toString());
     }
@@ -129,21 +128,21 @@ const PostCard = ({ userFullName, username, profileImage, content, postDate, pos
   useEffect(() => {
     const getComments = () => {
       try {
-        supabase
-          .from('Reply')
-          .select('*')
-          .eq('id_post', idPost)
-          .then(({ data, error }) => {
-            if (error) {
-              console.error('Error fetching replys:', error);
-            } else {
-              if (data) {
-                if (data.length > 0) {
-                  setExistComent(true);
-                }
-              }
-            }
-          });
+        // supabase
+        //   .from('Reply')
+        //   .select('*')
+        //   .eq('id_post', idPost)
+        //   .then(({ data, error }) => {
+        //     if (error) {
+        //       console.error('Error fetching replys:', error);
+        //     } else {
+        //       if (data) {
+        //         if (data.length > 0) {
+        //           setExistComent(true);
+        //         }
+        //       }
+        //     }
+        //   });
       } catch (error) {
         toast.error('Error:', error.toString());
       }
@@ -155,7 +154,7 @@ const PostCard = ({ userFullName, username, profileImage, content, postDate, pos
   }, [idPost]);
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-4 m-4">
+    <div className="bg-white rounded-lg shadow-md p-4 m-4 ">
       <div className="flex items-center">
         <img src={profileImage} alt={`${username}'s profile`} className="w-12 h-12 rounded-full" />
         <div className="flex flex-col gap-1 items-start justify-center">

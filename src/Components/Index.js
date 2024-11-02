@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { supabase } from './lib/SupabasseClient'
 import { useAuth } from "../Auth/AuthContext";
 import logo from '../assets/img/logo.PNG';
 import { toast } from 'react-toastify';
@@ -98,8 +97,8 @@ function Index() {
                         <Link to="/register">Registrarse</Link>
                     </button>
                 </form>
-                <a className="text-blue-500 hover:underline mt-4 block" href="/reset">
-                    <Link to="/reset"> Olvidaste tu Contraseña?</Link>
+                <a className="text-blue-500 hover:underline mt-4 block" href="/">
+                    <Link to="/"> Olvidaste tu Contraseña?</Link>
                 </a>
             </div>
 
